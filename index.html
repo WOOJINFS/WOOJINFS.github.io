@@ -6,7 +6,7 @@
     <title>WOOJIN [FS]</title>
     <link rel="icon" href="FS2.png" type="image/png">
     <style>
-        /* CSS 디자인: 여백과 장식을 제거한 극단적 대비 및 대문자 강제 변환 */
+        /* 기본 세팅 */
         body {
             background-color: #000000;
             color: #FFFFFF;
@@ -14,60 +14,111 @@
             margin: 0;
             padding: 0;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
             text-transform: uppercase;
+            overflow: hidden; /* 불필요한 스크롤 방지 */
         }
+
+        /* 3단 레이아웃 컨테이너 */
+        .layout-container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 6vw; /* 화면 크기에 비례한 좌우 구역 간격 */
+            z-index: 10;
+        }
+
+        /* 각 열(왼쪽, 중앙, 오른쪽) 정렬 */
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px; /* 위아래 링크 간격 */
+        }
+
+        /* 링크 텍스트 스타일 */
         a {
             color: #FFFFFF;
             text-decoration: none;
             font-size: 2.5rem;
             font-weight: 900;
-            margin: 25px 0;
             letter-spacing: -1px;
+            transition: color 0.2s ease;
         }
+
         a:hover {
             color: #555555; 
         }
-        
-        /* 배경 이미지 공통 속성 세팅 */
+
+        /* 가운데 뮤직비디오 링크 강조 (선택 사항) */
+        .center-mv a {
+            font-size: 3rem; 
+        }
+
+        /* 배경 이미지 세팅 */
         .bg-image {
             position: fixed;
             top: 0; left: 0; width: 100vw; height: 100vh;
             background-size: cover;
             background-position: center;
             opacity: 0; 
-            z-index: -1; 
-            transition: opacity 0.1s; 
-            pointer-events: none; /* 배경 이미지가 마우스 클릭을 방해하지 않도록 처리 */
+            z-index: 1; 
+            transition: opacity 0.2s ease; 
+            pointer-events: none; 
         }
-        
-        /* 1. 앨범 커버 배경 이미지 지정 */
+
         .bg-cover {
             background-image: url('FS.jpg');
         }
-        /* 2. 뮤직비디오 배경 이미지 지정 */
+        
         .bg-mv {
-            background-image: url('KIM.png'); /* 이미지 확장자가 jpg라면 KIM.jpg로 변경 필요 */
-        }
-
-        /* 각 링크 호버 시 해당하는 배경 노출 명령 */
-        .cover-link:hover ~ .bg-cover {
-            opacity: 0.8; 
-        }
-        .mv-link:hover ~ .bg-mv {
-            opacity: 0.8; 
+            background-image: url('KIM.png'); 
         }
     </style>
 </head>
 <body>
-    <a href="https://www.youtube.com/watch?v=nNDIk_kHhKk" target="_blank" class="mv-link">KIM MUSIC VIDEO</a>
-    <a href="https://www.youtube.com/watch?v=7wQq98AFqjo" target="_blank" class="cover-link">YOUTUBE</a>
-    <a href="https://open.spotify.com/album/7CmkmEZFbcmWnQG5IR6ZF1" target="_blank" class="cover-link">SPOTIFY</a>
-    <a href="https://music.apple.com/us/album/1875901449" target="_blank" class="cover-link">APPLE MUSIC</a>
+    <div class="layout-container">
+        <div class="column">
+            <a href="https://www.youtube.com/watch?v=7wQq98AFqjo" target="_blank" class="cover-link">YOUTUBE</a>
+            <a href="https://open.spotify.com/album/7CmkmEZFbcmWnQG5IR6ZF1" target="_blank" class="cover-link">SPOTIFY</a>
+            <a href="https://music.apple.com/us/album/1875901449" target="_blank" class="cover-link">APPLE MUSIC</a>
+        </div>
+
+        <div class="column center-mv">
+            <a href="https://www.youtube.com/watch?v=nNDIk_kHhKk" target="_blank" class="mv-link">KIM MUSIC VIDEO</a>
+        </div>
+
+        <div class="column">
+            <a href="#" target="_blank" class="cover-link">MELON</a>
+            <a href="#" target="_blank" class="cover-link">GENIE</a>
+            <a href="#" target="_blank" class="cover-link">BUGS</a>
+            <a href="#" target="_blank" class="cover-link">FLO</a>
+        </div>
+    </div>
+
     <div class="bg-image bg-cover"></div>
     <div class="bg-image bg-mv"></div>
+
+    <script>
+        const coverLinks = document.querySelectorAll('.cover-link');
+        const mvLinks = document.querySelectorAll('.mv-link');
+        const bgCover = document.querySelector('.bg-cover');
+        const bgMv = document.querySelector('.bg-mv');
+
+        // 커버 링크들(플랫폼) 호버 설정
+        coverLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => bgCover.style.opacity = '0.8');
+            link.addEventListener('mouseleave', () => bgCover.style.opacity = '0');
+        });
+
+        // 뮤직비디오 링크 호버 설정
+        mvLinks.forEach(link => {
+            link.addEventListener('mouseenter', () => bgMv.style.opacity = '0.8');
+            link.addEventListener('mouseleave', () => bgMv.style.opacity = '0');
+        });
+    </script>
 </body>
 </html>
