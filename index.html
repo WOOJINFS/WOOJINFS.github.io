@@ -18,7 +18,7 @@
             justify-content: center;
             min-height: 100vh;
             text-transform: uppercase;
-            overflow: hidden; /* 불필요한 스크롤 방지 */
+            overflow-x: hidden; /* 가로 스크롤 잘림 방지 */
         }
 
         /* 3단 레이아웃 컨테이너 */
@@ -27,19 +27,17 @@
             flex-direction: row;
             align-items: center;
             justify-content: center;
-            gap: 6vw; /* 화면 크기에 비례한 좌우 구역 간격 */
+            gap: 6vw; 
             z-index: 10;
         }
 
-        /* 각 열(왼쪽, 중앙, 오른쪽) 정렬 */
         .column {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 30px; /* 위아래 링크 간격 */
+            gap: 30px; 
         }
 
-        /* 링크 텍스트 스타일 */
         a {
             color: #FFFFFF;
             text-decoration: none;
@@ -53,9 +51,26 @@
             color: #555555; 
         }
 
-        /* 가운데 뮤직비디오 링크 강조 (선택 사항) */
         .center-mv a {
             font-size: 3rem; 
+        }
+
+        /* 모바일 화면(너비 768px 이하)일 때 세로로 정렬하는 반응형 코드 */
+        @media (max-width: 768px) {
+            .layout-container {
+                flex-direction: column; /* 세로 배열로 변경 */
+                gap: 30px; /* 구역 간격 축소 */
+                padding: 50px 0;
+            }
+            .column {
+                gap: 20px;
+            }
+            a {
+                font-size: 2rem; /* 모바일용 폰트 크기 축소 */
+            }
+            .center-mv a {
+                font-size: 2.2rem;
+            }
         }
 
         /* 배경 이미지 세팅 */
@@ -70,13 +85,8 @@
             pointer-events: none; 
         }
 
-        .bg-cover {
-            background-image: url('FS.jpg');
-        }
-        
-        .bg-mv {
-            background-image: url('KIM.png'); 
-        }
+        .bg-cover { background-image: url('FS.jpg'); }
+        .bg-mv { background-image: url('KIM.png'); }
     </style>
 </head>
 <body>
@@ -85,6 +95,7 @@
             <a href="https://www.youtube.com/watch?v=7wQq98AFqjo" target="_blank" class="cover-link">YOUTUBE</a>
             <a href="https://open.spotify.com/album/7CmkmEZFbcmWnQG5IR6ZF1" target="_blank" class="cover-link">SPOTIFY</a>
             <a href="https://music.apple.com/us/album/1875901449" target="_blank" class="cover-link">APPLE MUSIC</a>
+            <a href="#" target="_blank" class="cover-link">MELON</a>
         </div>
 
         <div class="column center-mv">
@@ -92,10 +103,10 @@
         </div>
 
         <div class="column">
-            <a href="#" target="_blank" class="cover-link">MELON</a>
             <a href="#" target="_blank" class="cover-link">GENIE</a>
             <a href="#" target="_blank" class="cover-link">BUGS</a>
             <a href="#" target="_blank" class="cover-link">FLO</a>
+            <a href="#" target="_blank" class="cover-link">VIBE</a>
         </div>
     </div>
 
@@ -108,13 +119,11 @@
         const bgCover = document.querySelector('.bg-cover');
         const bgMv = document.querySelector('.bg-mv');
 
-        // 커버 링크들(플랫폼) 호버 설정
         coverLinks.forEach(link => {
             link.addEventListener('mouseenter', () => bgCover.style.opacity = '0.8');
             link.addEventListener('mouseleave', () => bgCover.style.opacity = '0');
         });
 
-        // 뮤직비디오 링크 호버 설정
         mvLinks.forEach(link => {
             link.addEventListener('mouseenter', () => bgMv.style.opacity = '0.8');
             link.addEventListener('mouseleave', () => bgMv.style.opacity = '0');
